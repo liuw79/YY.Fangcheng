@@ -29,3 +29,24 @@
 2025-06-13 17:23:42,306 - INFO - HTTP重定向地址: http://op.gaowei.com:8888
 2025-06-13 17:23:42,306 - INFO - 注意: 使用的是自签名证书，浏览器会显示安全警告，这是正常的
 2025-06-13 17:23:42,306 - INFO - [chan 0] sftp session closed.
+2025-06-13 17:24:54,126 - INFO - 开始Python HTTPS部署...
+2025-06-13 17:24:54,399 - INFO - Connected (version 2.0, client OpenSSH_7.4)
+2025-06-13 17:24:54,786 - INFO - Authentication (publickey) successful!
+2025-06-13 17:24:54,786 - INFO - SSH密钥连接成功
+2025-06-13 17:24:54,872 - INFO - [chan 0] Opened sftp connection (server version 3)
+2025-06-13 17:24:56,980 - INFO - 部署包创建成功: fangcheng_deploy_20250613_172454.tar.gz
+2025-06-13 17:24:57,068 - INFO - 上传文件到服务器: /tmp/fangcheng_deploy_20250613_172454.tar.gz
+2025-06-13 17:25:06,309 - INFO - 解压到应用目录: /var/www/fangcheng
+2025-06-13 17:25:06,404 - INFO - 文件上传和解压完成
+2025-06-13 17:25:06,563 - INFO - SSL证书创建完成
+2025-06-13 17:25:06,747 - INFO - 启动HTTPS应用在端口 8443...
+2025-06-13 17:25:09,846 - INFO - HTTPS应用启动成功!
+2025-06-13 17:25:09,846 - INFO - HTTPS访问地址: https://op.gaowei.com:8443
+2025-06-13 17:25:09,846 - INFO - HTTP重定向地址: http://op.gaowei.com:8888
+2025-06-13 17:25:15,263 - WARNING - HTTPS健康检查失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-06-13 17:25:15,513 - INFO - HTTP重定向检查通过
+2025-06-13 17:25:15,513 - INFO - Python HTTPS部署成功完成!
+2025-06-13 17:25:15,513 - INFO - HTTPS访问地址: https://op.gaowei.com:8443
+2025-06-13 17:25:15,513 - INFO - HTTP重定向地址: http://op.gaowei.com:8888
+2025-06-13 17:25:15,513 - INFO - 注意: 使用的是自签名证书，浏览器会显示安全警告，这是正常的
+2025-06-13 17:25:15,514 - INFO - [chan 0] sftp session closed.

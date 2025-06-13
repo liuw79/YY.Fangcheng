@@ -13,3 +13,16 @@
 2025-06-13 17:24:48,061 - INFO - 检查Git状态...
 2025-06-13 17:24:48,102 - INFO - 发现未提交的更改:
 2025-06-13 17:24:48,102 - INFO - 添加更改到Git...
+2025-06-13 17:24:48,122 - INFO - 提交更改: Auto deploy: 2025-06-13 17:24:48
+2025-06-13 17:24:48,179 - INFO - 推送到远程仓库...
+2025-06-13 17:24:48,199 - ERROR - Git push失败: fatal: No configured push destination.
+Either specify the URL from the command-line or configure a remote repository using
+
+    git remote add <name> <url>
+
+and then push using the remote name
+
+    git push <name>
+
+
+2025-06-13 17:26:14,396 - INFO - 添加更改到Git...

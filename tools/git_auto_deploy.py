@@ -125,8 +125,11 @@ class GitAutoDeploy:
             logger.info("推送到远程仓库...")
             returncode, stdout, stderr = self.run_command(['git', 'push'])
             if returncode != 0:
-                logger.error(f"Git push失败: {stderr}")
-                return False
+                if "No configured push destination" in stderr:
+                    logger.warning("没有配置远程仓库，跳过push步骤")
+                else:
+                    logger.error(f"Git push失败: {stderr}")
+                    return False
             
             logger.info("Git操作完成")
             return True

@@ -14,7 +14,7 @@
         "retention_days": 7
     },
     "github": {
-        "repo": "your-username/your-repo",
+        "repo": "liuw79/YY.Fangcheng",
         "branch": "main"
     },
     "app": {

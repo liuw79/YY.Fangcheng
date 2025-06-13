@@ -82,10 +82,124 @@
 **备用地址**: http://op.gaowei.com:8888
 
 
+## HTTPS部署总结 - 2025-06-13 17:35
+
+### ✅ 已完成的工作
+
+1. **发现并使用DigiCert正式SSL证书**
+   - 证书路径：`/root/cert/gaowei.crt` 和 `/root/cert/gaowei.key`
+   - 证书颁发机构：DigiCert Inc. (RapidSSL Global TLS RSA4096 SHA256 2022 CA1)
+   - 证书域名：`*.gaowei.com`
+   - 有效期：至2025年6月26日
+
+2. **清理错误假设和临时证书**
+   - 删除了基于自签名证书的错误代码
+   - 清理了之前创建的临时自签名证书
+   - 更正了证书路径配置
+
+3. **创建正式HTTPS部署脚本**
+   - `tools/official_https_deploy.py`：使用DigiCert正式证书的HTTPS部署
+   - 支持标准443端口的HTTPS服务
+   - HTTP自动重定向到HTTPS
+
+4. **完整自动化流程验证**
+   - ✅ Git自动提交和推送（跳过无远程仓库的情况）
+   - ✅ 自动部署到服务器
+   - ✅ 正式SSL证书验证
+   - ✅ HTTPS服务器启动（端口443）
+   - ⚠️ 健康检查需要进一步调试
+
+### 🔧 技术架构
+
+- **部署方式**：Python内置HTTPS服务器（因nginx无SSL模块）
+- **证书管理**：使用DigiCert颁发的正式SSL证书
+- **端口配置**：HTTPS 443，HTTP 8888（重定向）
+- **自动化**：Git -> 打包 -> 上传 -> 部署 -> 验证
+
+### 📝 使用方法
+
+```bash
+# 完整自动部署流程
+python3 tools/git_auto_deploy.py -m "部署消息"
+
+# 仅HTTPS部署
+python3 tools/official_https_deploy.py
+
+# HTTP部署（备用）
+python3 tools/simple_deploy.py
+```
+
+### 🌐 访问地址
+
+- **主要地址**：https://op.gaowei.com （使用DigiCert正式证书）
+- **备用地址**：http://op.gaowei.com:8888
+
+### 🎯 下一步优化
+
+1. 调试HTTPS健康检查端点
+2. 确保HTTP重定向正常工作
+3. 设置GitHub远程仓库进行完整的CI/CD流程
+
+## 自动部署记录 - 2025-06-13 17:34:58
+
+**状态**: 部署完成（验证失败）
+**时间**: 2025-06-13 17:34:58
+**访问地址**: https://op.gaowei.com
+**备用地址**: http://op.gaowei.com:8888
+
 ## 自动部署记录 - 2025-06-13 17:30:48
 
 **状态**: 手动部署成功
 **时间**: 2025-06-13 17:30:48
+**访问地址**: https://op.gaowei.com
+**备用地址**: http://op.gaowei.com:8888
+
+
+## 英语版本自动化脚本开发 - 2025-06-13 17:47
+
+### ✅ 新增英语版本脚本（避免编码问题）
+
+1. **英语版本HTTPS部署脚本**
+   - `tools/english_https_deploy.py`：完整的英语版HTTPS部署脚本
+   - 支持DigiCert正式证书和HTTP模式
+   - 所有日志和输出使用英语，避免编码问题
+
+2. **英语版本Git自动化脚本**
+   - `tools/english_git_deploy.py`：完整的Git工作流自动化
+   - 支持时间戳更新、Git提交、推送和部署
+   - 英语日志输出，提高兼容性
+
+3. **快速英语部署脚本**
+   - `tools/quick_english_deploy.py`：一键快速部署
+   - 简化的部署流程，适合快速更新
+
+### 🔧 使用方法
+
+```bash
+# 快速一键部署（推荐）
+python3 tools/quick_english_deploy.py
+
+# 完整Git工作流部署
+python3 tools/english_git_deploy.py -m "Update message"
+
+# 仅HTTPS部署
+python3 tools/english_https_deploy.py
+
+# HTTP模式部署
+python3 tools/english_https_deploy.py --http-only
+```
+
+### 📈 改进特性
+
+- **编码兼容性**：所有输出使用英语，避免中文编码问题
+- **模块化设计**：独立的英语版本脚本，不影响现有中文脚本
+- **错误处理**：改进的错误处理和日志记录
+- **灵活部署**：支持HTTPS和HTTP模式切换
+
+## 自动部署记录 - 2025-06-13 17:34:58
+
+**状态**: 手动部署成功
+**时间**: 2025-06-13 17:34:58
 **访问地址**: https://op.gaowei.com
 **备用地址**: http://op.gaowei.com:8888
 

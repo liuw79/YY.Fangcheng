@@ -1,0 +1,27 @@
+2025-06-13 17:47:39,006 - INFO - Starting English Git Auto-Deploy workflow...
+2025-06-13 17:47:39,007 - INFO - Updated deployment timestamp to: 2025-06-13 17:47
+2025-06-13 17:47:39,007 - INFO - Skipping Git operations as requested
+2025-06-13 17:47:39,007 - INFO - Starting deployment process...
+2025-06-13 17:47:39,034 - INFO - Deployment completed successfully!
+2025-06-13 17:47:39,035 - INFO - ============================================================
+2025-06-13 17:47:39,035 - INFO - WORKFLOW COMPLETED SUCCESSFULLY!
+2025-06-13 17:47:39,035 - INFO - ============================================================
+2025-06-13 17:47:39,035 - INFO - HTTPS URL: https://op.gaowei.com
+2025-06-13 17:47:39,035 - INFO - HTTP URL: http://op.gaowei.com:8888
+2025-06-13 17:47:39,035 - INFO - Using official DigiCert SSL certificate
+2025-06-13 17:47:39,035 - INFO - Deployment workflow completed!
+2025-06-13 17:53:50,361 - INFO - Starting English Git Auto-Deploy workflow...
+2025-06-13 17:53:50,361 - INFO - Updated deployment timestamp to: 2025-06-13 17:53
+2025-06-13 17:53:50,444 - INFO - Found 12 changes to commit:
+2025-06-13 17:53:50,444 - INFO -   M git_auto_deploy.log
+2025-06-13 17:53:50,444 - INFO -    M index.html
+2025-06-13 17:53:50,444 - INFO -    M official_https_deploy.log
+2025-06-13 17:53:50,444 - INFO -    M progress.md
+2025-06-13 17:53:50,444 - INFO -    M python_https_deploy.log
+2025-06-13 17:53:50,444 - INFO -    M tools/config.json
+2025-06-13 17:53:50,444 - INFO -   ?? english_git_deploy.log
+2025-06-13 17:53:50,445 - INFO -   ?? simple_deploy.log
+2025-06-13 17:53:50,445 - INFO -   ?? tools/__pycache__/
+2025-06-13 17:53:50,445 - INFO -   ?? tools/english_git_deploy.py
+2025-06-13 17:53:50,445 - INFO -   ?? tools/english_https_deploy.py
+2025-06-13 17:53:50,445 - INFO -   ?? tools/quick_english_deploy.py

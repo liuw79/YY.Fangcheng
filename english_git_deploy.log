@@ -25,3 +25,15 @@
 2025-06-13 17:53:50,445 - INFO -   ?? tools/english_git_deploy.py
 2025-06-13 17:53:50,445 - INFO -   ?? tools/english_https_deploy.py
 2025-06-13 17:53:50,445 - INFO -   ?? tools/quick_english_deploy.py
+2025-06-13 17:53:50,474 - INFO - Added all changes to staging area
+2025-06-13 17:53:50,514 - INFO - Committed changes with message: Initial GitHub setup and complete automation workflow test
+2025-06-13 17:55:15,509 - INFO - Successfully pushed and set upstream origin/main
+2025-06-13 17:55:15,510 - INFO - Starting deployment process...
+2025-06-13 17:55:15,534 - INFO - Deployment completed successfully!
+2025-06-13 17:55:15,535 - INFO - ============================================================
+2025-06-13 17:55:15,535 - INFO - WORKFLOW COMPLETED SUCCESSFULLY!
+2025-06-13 17:55:15,535 - INFO - ============================================================
+2025-06-13 17:55:15,535 - INFO - HTTPS URL: https://op.gaowei.com
+2025-06-13 17:55:15,535 - INFO - HTTP URL: http://op.gaowei.com:8888
+2025-06-13 17:55:15,535 - INFO - Using official DigiCert SSL certificate
+2025-06-13 17:55:15,535 - INFO - Deployment workflow completed!

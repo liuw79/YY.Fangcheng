@@ -14,3 +14,19 @@
 2025-06-13 17:37:54,460 - INFO - 部署完成，但健康检查未通过，请手动检查
 2025-06-13 17:37:54,460 - INFO - 应用访问地址: http://op.gaowei.com:8888
 2025-06-13 17:37:54,460 - INFO - [chan 0] sftp session closed.
+2025-06-13 17:56:03,494 - INFO - 开始简单HTTP服务器部署...
+2025-06-13 17:56:03,756 - INFO - Connected (version 2.0, client OpenSSH_7.4)
+2025-06-13 17:56:04,077 - INFO - Authentication (publickey) successful!
+2025-06-13 17:56:04,078 - INFO - SSH密钥连接成功
+2025-06-13 17:56:04,164 - INFO - [chan 0] Opened sftp connection (server version 3)
+2025-06-13 17:56:06,169 - INFO - 部署包创建成功: fangcheng_deploy_20250613_175604.tar.gz
+2025-06-13 17:56:06,354 - INFO - 上传文件到服务器: /tmp/fangcheng_deploy_20250613_175604.tar.gz
+2025-06-13 17:56:15,546 - INFO - 解压到应用目录: /var/www/fangcheng
+2025-06-13 17:56:15,757 - INFO - 文件上传和解压完成
+2025-06-13 17:56:15,992 - INFO - HTTP服务器脚本创建完成
+2025-06-13 17:56:16,032 - INFO - 启动HTTP服务器在端口 8888...
+2025-06-13 17:56:19,131 - ERROR - HTTP服务器启动失败，请检查日志
+2025-06-13 17:56:29,252 - WARNING - 健康检查失败: HTTPConnectionPool(host='op.gaowei.com', port=8888): Read timed out. (read timeout=5)
+2025-06-13 17:56:29,252 - INFO - 部署完成，但健康检查未通过，请手动检查
+2025-06-13 17:56:29,253 - INFO - 应用访问地址: http://op.gaowei.com:8888
+2025-06-13 17:56:29,253 - INFO - [chan 0] sftp session closed.

@@ -6,7 +6,7 @@
         "app_dir": "/var/www/fangcheng",
         "temp_dir": "/tmp",
         "domain": "op.gaowei.com",
-        "port": 8888
+        "port": 88
     },
     "backup": {
         "remote_dir": "/var/backups/fangcheng",
@@ -19,6 +19,6 @@
     },
     "app": {
         "name": "fangcheng",
-        "port": 8888
+        "port": 88
     }
 } 

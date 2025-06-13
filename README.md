@@ -196,3 +196,73 @@ chmod +x push_to_github.sh
 ---
 
 **享受学习方程的乐趣！** 🎉
+
+# 房城部署工具
+
+简化的自动化部署工具集，使用简短命名便于使用。
+
+## 🚀 快速使用
+
+### 主要脚本
+
+```bash
+# 完整Git工作流 + 部署（推荐）
+python3 tools/git.py -m "你的提交信息"
+
+# 仅部署（跳过Git操作）
+python3 tools/deploy.py
+
+# 手动部署（完整功能）
+python3 tools/simple_deploy.py
+```
+
+### 访问地址
+
+- **HTTP**: http://op.gaowei.com:88 （主要访问地址）
+- **HTTPS**: https://op.gaowei.com （使用DigiCert正式证书，需要特殊配置）
+
+## 📁 脚本说明
+
+| 脚本 | 功能 | 使用场景 |
+|------|------|----------|
+| `tools/git.py` | Git自动化 + 部署 | 完整开发流程 |
+| `tools/deploy.py` | 快速部署 | 仅更新部署 |
+| `tools/simple_deploy.py` | 完整部署 | 手动控制 |
+
+## ⚙️ 配置
+
+配置文件：`tools/config.json`
+
+```json
+{
+    "server": {
+        "host": "op.gaowei.com",
+        "username": "root",
+                 "port": 88
+    },
+    "github": {
+        "repo": "liuw79/YY.Fangcheng",
+        "branch": "main"
+    }
+}
+```
+
+## 🔧 功能特性
+
+- ✅ **简短命名**：所有脚本使用简短易记的名称
+- ✅ **自动时间戳**：自动更新部署时间戳
+- ✅ **Git集成**：自动提交和推送到GitHub
+- ✅ **HTTPS支持**：使用DigiCert正式SSL证书
+- ✅ **错误处理**：完善的错误处理和日志记录
+
+## 📊 部署流程
+
+1. **更新时间戳** → 2. **Git提交推送** → 3. **服务器部署** → 4. **服务启动**
+
+## 🌐 GitHub仓库
+
+https://github.com/liuw79/YY.Fangcheng
+
+---
+
+*简化命名，提高效率* 🚀

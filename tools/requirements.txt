@@ -1,0 +1,5 @@
+paramiko==3.4.0
+requests==2.31.0
+psutil==5.9.8
+PyGithub==2.1.1
+python-dotenv==1.0.1 

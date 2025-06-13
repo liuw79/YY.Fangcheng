@@ -1,0 +1,594 @@
+/* 动画样式文件 */
+
+/* 基础动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 缩放动画 */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -30px, 0);
+    }
+    70% {
+        transform: translate3d(0, -15px, 0);
+    }
+    90% {
+        transform: translate3d(0, -4px, 0);
+    }
+}
+
+/* 旋转动画 */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes wobble {
+    0% {
+        transform: rotate(0deg);
+    }
+    15% {
+        transform: rotate(-5deg);
+    }
+    30% {
+        transform: rotate(4deg);
+    }
+    45% {
+        transform: rotate(-3deg);
+    }
+    60% {
+        transform: rotate(2deg);
+    }
+    75% {
+        transform: rotate(-1deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* 特殊效果动画 */
+@keyframes magicGlow {
+    from {
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+    to {
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.6), 0 0 20px rgba(102, 126, 234, 0.4);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* 天平动画 */
+@keyframes balanceLeft {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-10deg);
+    }
+}
+
+@keyframes balanceRight {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes balanceBalance {
+    from {
+        transform: rotate(-5deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+/* 数字变化动画 */
+@keyframes numberChange {
+    0% {
+        transform: scale(1);
+        color: inherit;
+    }
+    50% {
+        transform: scale(1.2);
+        color: #667eea;
+    }
+    100% {
+        transform: scale(1);
+        color: inherit;
+    }
+}
+
+/* 成功动画 */
+@keyframes successPulse {
+    0% {
+        transform: scale(1);
+        background: #48bb78;
+    }
+    50% {
+        transform: scale(1.1);
+        background: #38a169;
+    }
+    100% {
+        transform: scale(1);
+        background: #48bb78;
+    }
+}
+
+/* 错误动画 */
+@keyframes errorShake {
+    0%, 100% {
+        transform: translateX(0);
+        background: #f56565;
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-3px);
+        background: #e53e3e;
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(3px);
+        background: #f56565;
+    }
+}
+
+/* 进度条动画 */
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--target-width);
+    }
+}
+
+/* 星星闪烁动画 */
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* 彩虹效果 */
+@keyframes rainbow {
+    0% { color: #ff0000; }
+    16.66% { color: #ff8000; }
+    33.33% { color: #ffff00; }
+    50% { color: #00ff00; }
+    66.66% { color: #0080ff; }
+    83.33% { color: #8000ff; }
+    100% { color: #ff0000; }
+}
+
+/* 动画类 */
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-fadeOut {
+    animation: fadeOut 0.5s ease-in-out;
+}
+
+.animate-slideInLeft {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slideInRight {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.animate-slideInUp {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.animate-slideInDown {
+    animation: slideInDown 0.6s ease-out;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.4s ease-out;
+}
+
+.animate-scaleOut {
+    animation: scaleOut 0.4s ease-in;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+.animate-wobble {
+    animation: wobble 1s ease-in-out;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.animate-magicGlow {
+    animation: magicGlow 2s ease-in-out infinite alternate;
+}
+
+.animate-sparkle {
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.animate-numberChange {
+    animation: numberChange 0.6s ease-in-out;
+}
+
+.animate-success {
+    animation: successPulse 0.6s ease-in-out;
+}
+
+.animate-error {
+    animation: errorShake 0.6s ease-in-out;
+}
+
+.animate-starTwinkle {
+    animation: starTwinkle 2s ease-in-out infinite;
+}
+
+.animate-rainbow {
+    animation: rainbow 3s linear infinite;
+}
+
+/* 天平特定动画 */
+.balance-tilt-left {
+    animation: balanceLeft 0.8s ease-out forwards;
+}
+
+.balance-tilt-right {
+    animation: balanceRight 0.8s ease-out forwards;
+}
+
+.balance-balanced {
+    animation: balanceBalance 0.8s ease-out forwards;
+}
+
+/* 拖拽动画 */
+.dragging {
+    transform: scale(1.1);
+    opacity: 0.8;
+    z-index: 1000;
+    transition: all 0.2s ease;
+}
+
+.drop-zone-active {
+    background: rgba(102, 126, 234, 0.1);
+    border: 2px dashed #667eea;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.drop-success {
+    animation: successPulse 0.6s ease-in-out;
+}
+
+.drop-error {
+    animation: errorShake 0.6s ease-in-out;
+}
+
+/* 按钮动画 */
+.btn-loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* 文字动画 */
+.typewriter {
+    overflow: hidden;
+    border-right: 2px solid #667eea;
+    white-space: nowrap;
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: #667eea;
+    }
+}
+
+/* 粒子效果 */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #667eea;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat 3s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0);
+    }
+}
+
+/* 庆祝动画 */
+.celebration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff6b6b;
+    animation: confettiFall 3s ease-out forwards;
+}
+
+.confetti:nth-child(2n) {
+    background: #4ecdc4;
+    animation-delay: 0.2s;
+}
+
+.confetti:nth-child(3n) {
+    background: #45b7d1;
+    animation-delay: 0.4s;
+}
+
+.confetti:nth-child(4n) {
+    background: #f9ca24;
+    animation-delay: 0.6s;
+}
+
+.confetti:nth-child(5n) {
+    background: #6c5ce7;
+    animation-delay: 0.8s;
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 1;
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+/* 响应式动画调整 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .animate-slideInLeft,
+    .animate-slideInRight {
+        animation-name: fadeIn;
+    }
+    
+    .balance-tilt-left,
+    .balance-tilt-right,
+    .balance-balanced {
+        animation-duration: 0.5s;
+    }
+}
+
+/* 性能优化 */
+.will-change-transform {
+    will-change: transform;
+}
+
+.will-change-opacity {
+    will-change: opacity;
+}
+
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 暗色主题动画调整 */
+@media (prefers-color-scheme: dark) {
+    .animate-magicGlow {
+        animation-name: magicGlowDark;
+    }
+    
+    @keyframes magicGlowDark {
+        from {
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+        }
+        to {
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.8), 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+    }
+}

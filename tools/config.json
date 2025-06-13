@@ -1,0 +1,24 @@
+{
+    "server": {
+        "host": "op.gaowei.com",
+        "username": "root",
+        "key_path": "~/.ssh/id_rsa",
+        "app_dir": "/var/www/fangcheng",
+        "temp_dir": "/tmp",
+        "domain": "op.gaowei.com",
+        "port": 8888
+    },
+    "backup": {
+        "remote_dir": "/var/backups/fangcheng",
+        "local_dir": "./backups",
+        "retention_days": 7
+    },
+    "github": {
+        "repo": "your-username/your-repo",
+        "branch": "main"
+    },
+    "app": {
+        "name": "fangcheng",
+        "port": 8888
+    }
+} 

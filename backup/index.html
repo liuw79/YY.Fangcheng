@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学方程小游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- 游戏主容器 -->
+    <div id="gameContainer">
+        <!-- 头部导航 -->
+        <header id="gameHeader">
+            <div class="header-left">
+                <h1 class="game-title">🎯 学方程小游戏</h1>
+            </div>
+            <div class="header-right">
+                <div class="progress-info">
+                    <span class="stage-info">第<span id="currentStage">1</span>阶段</span>
+                    <span class="level-info">第<span id="currentLevel">1</span>关</span>
+                </div>
+                <div class="score-info">
+                    <span class="score">得分: <span id="totalScore">0</span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主游戏区域 -->
+        <main id="gameMain">
+            <!-- 开始界面 -->
+            <div id="startScreen" class="screen active">
+                <div class="welcome-container">
+                    <h2 class="welcome-title">欢迎来到方程世界！</h2>
+                    <p class="welcome-subtitle">让我们一起学习用方程解决问题吧！</p>
+                    
+                    <div class="game-controls">
+                        <button id="startGame" class="btn btn-primary btn-large" onclick="game.showStageSelection()">开始游戏</button>
+                        <button id="showHelp" class="btn btn-secondary">游戏说明</button>
+                    </div>
+                    
+                    <div class="stage-selection">
+                        <div class="stage-card" data-stage="1">
+                            <div class="stage-icon">⚖️</div>
+                            <h3>天平游戏</h3>
+                            <p>理解等量关系</p>
+                            <div class="stage-progress">
+                                <span class="progress-text">进度: <span class="progress-count">0/8</span></span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stage-card" data-stage="2">
+                            <div class="stage-icon">📦</div>
+                            <h3>魔法盒子</h3>
+                            <p>认识未知数</p>
+                            <div class="stage-progress">
+                                <span class="progress-text">进度: <span class="progress-count">0/10</span></span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stage-card" data-stage="3">
+                            <div class="stage-icon">📚</div>
+                            <h3>故事方程</h3>
+                            <p>实际问题应用</p>
+                            <div class="stage-progress">
+                                <span class="progress-text">进度: <span class="progress-count">0/12</span></span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stage-card" data-stage="4">
+                            <div class="stage-icon">🏆</div>
+                            <h3>挑战关卡</h3>
+                            <p>综合运用</p>
+                            <div class="stage-progress">
+                                <span class="progress-text">进度: <span class="progress-count">0/6</span></span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="continueBtn" class="btn btn-primary">继续学习</button>
+                        <button id="newGameBtn" class="btn btn-secondary">重新开始</button>
+                        <button id="helpBtn" class="btn btn-info">游戏说明</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 游戏界面 -->
+            <div id="gameScreen" class="screen">
+                <!-- 关卡信息 -->
+                <div class="level-header">
+                    <div class="level-title">
+                        <h2 id="levelTitle">关卡标题</h2>
+                        <p id="levelDescription">关卡描述</p>
+                    </div>
+                    <div class="level-progress">
+                        <div class="hearts">
+                            <span class="heart active">❤️</span>
+                            <span class="heart active">❤️</span>
+                            <span class="heart active">❤️</span>
+                        </div>
+                        <div class="game-controls">
+                            <button id="pauseGame" class="btn btn-small">暂停</button>
+                            <button id="getHint" class="btn btn-small">提示</button>
+                            <button id="resetLevel" class="btn btn-small">重置</button>
+                            <button id="backToStart" class="btn btn-small">返回</button>
+                        </div>
+                    </div>
+                    <div class="game-stats">
+                        <span id="scoreDisplay">得分: 0</span>
+                        <span id="livesDisplay">生命: 3</span>
+                        <span id="hintsDisplay">提示: 3</span>
+                        <span id="levelDisplay">第1关</span>
+                    </div>
+                    <div id="progressBar" class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- 游戏内容区 -->
+                <div id="gameContent" class="game-content">
+                    <!-- 天平游戏 -->
+                    <div id="balanceGame" class="game-type">
+                        <div class="balance-container">
+                            <div class="balance-beam">
+                                <div class="balance-left" id="balanceLeft">
+                                    <div class="balance-plate"></div>
+                                    <div class="balance-items" id="leftItems"></div>
+                                </div>
+                                <div class="balance-center">
+                                    <div class="balance-fulcrum"></div>
+                                </div>
+                                <div class="balance-right" id="balanceRight">
+                                    <div class="balance-plate"></div>
+                                    <div class="balance-items" id="rightItems"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-bank" id="itemBank">
+                            <!-- 可拖拽的物品 -->
+                        </div>
+                    </div>
+
+                    <!-- 魔法盒子游戏 -->
+                    <div id="magicBoxGame" class="game-type">
+                        <div class="equation-display">
+                            <div class="equation-parts" id="equationParts">
+                                <!-- 方程组件 -->
+                            </div>
+                        </div>
+                        <div class="magic-box-container">
+                            <div class="magic-box" id="magicBox">
+                                <div class="box-content">?</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 故事方程游戏 -->
+                    <div id="storyGame" class="game-type">
+                        <div class="story-container">
+                            <div class="story-text" id="storyText">
+                                <!-- 故事内容 -->
+                            </div>
+                            <div class="story-question" id="storyQuestion">
+                                <!-- 问题 -->
+                            </div>
+                        </div>
+                        <div class="equation-builder" id="equationBuilder">
+                            <!-- 方程构建器 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 答题区域 -->
+                <div id="answerArea" class="answer-area">
+                    <div class="answer-input-group">
+                        <label for="answerInput">你的答案:</label>
+                        <input type="text" id="answerInput" class="answer-input" placeholder="请输入答案">
+                        <button id="submitAnswer" class="btn btn-primary">提交答案</button>
+                    </div>
+                </div>
+
+                <!-- 反馈区域 -->
+                <div id="feedbackArea" class="feedback-area">
+                    <div class="feedback-content"></div>
+                </div>
+                <div class="answer-section">
+                    <div class="answer-input">
+                        <label for="answerField">你的答案：</label>
+                        <input type="number" id="answerField" placeholder="请输入答案">
+                        <span class="answer-unit" id="answerUnit"></span>
+                    </div>
+                    <div class="answer-buttons">
+                        <button id="submitBtn" class="btn btn-primary">提交答案</button>
+                        <button id="hintBtn" class="btn btn-secondary">提示</button>
+                        <button id="skipBtn" class="btn btn-warning">跳过</button>
+                    </div>
+                </div>
+
+                <!-- 反馈区域 -->
+                <div id="feedback" class="feedback hidden">
+                    <div class="feedback-content">
+                        <div class="feedback-icon"></div>
+                        <div class="feedback-text"></div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 结果界面 -->
+            <div id="resultScreen" class="screen">
+                <div class="result-container">
+                    <div class="result-header">
+                        <div class="result-icon" id="resultIcon"></div>
+                        <h2 class="result-title" id="resultTitle"></h2>
+                    </div>
+                    <div class="result-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">正确率</span>
+                            <span class="stat-value" id="accuracyRate">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">用时</span>
+                            <span class="stat-value" id="timeSpent">0秒</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">得分</span>
+                            <span class="stat-value" id="levelScore">0分</span>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <button id="nextLevelBtn" class="btn btn-primary">下一关</button>
+                        <button id="retryBtn" class="btn btn-secondary">重试</button>
+                        <button id="backToMenuBtn" class="btn btn-info">返回主菜单</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 帮助界面 -->
+            <div id="helpScreen" class="screen">
+                <div class="help-container">
+                    <h2>游戏说明</h2>
+                    <div class="help-content">
+                        <div class="help-section">
+                            <h3>🎯 游戏目标</h3>
+                            <p>通过有趣的游戏，学会用方程的思维解决数学问题。</p>
+                        </div>
+                        <div class="help-section">
+                            <h3>⚖️ 天平游戏</h3>
+                            <p>拖拽物品到天平两边，理解等量关系的概念。</p>
+                        </div>
+                        <div class="help-section">
+                            <h3>📦 魔法盒子</h3>
+                            <p>猜测盒子里的数量，学习用字母表示未知数。</p>
+                        </div>
+                        <div class="help-section">
+                            <h3>📚 故事方程</h3>
+                            <p>从生活故事中找出数量关系，列出方程。</p>
+                        </div>
+                        <div class="help-section">
+                            <h3>🏆 挑战关卡</h3>
+                            <p>综合运用所学知识，解决复杂问题。</p>
+                        </div>
+                    </div>
+                    <button id="backToStart" class="btn btn-primary">返回主菜单</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 底部信息 -->
+        <footer id="gameFooter">
+            <div class="footer-content">
+                <p>&copy; 2024 学方程小游戏 - 让数学学习更有趣</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 加载提示 -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <p>游戏加载中...</p>
+    </div>
+
+    <!-- JavaScript文件 -->
+    <script src="js/utils.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/balance.js"></script>
+    <script src="js/magicbox.js"></script>
+    <script src="js/story.js"></script>
+    <script src="js/game.js"></script>
+    
+    <script>
+        // 声明全局游戏变量
+        let game;
+        
+        // 错误处理
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript错误:', e.error);
+            console.error('文件:', e.filename);
+            console.error('行号:', e.lineno);
+            console.error('列号:', e.colno);
+        });
+        
+        // 游戏初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                console.log('开始初始化游戏...');
+                
+                // 检查必要的类是否存在
+                if (typeof EquationGame === 'undefined') {
+                    throw new Error('EquationGame类未定义');
+                }
+                if (typeof BalanceGame === 'undefined') {
+                    throw new Error('BalanceGame类未定义');
+                }
+                if (typeof MagicBoxGame === 'undefined') {
+                    throw new Error('MagicBoxGame类未定义');
+                }
+                if (typeof StoryGame === 'undefined') {
+                    throw new Error('StoryGame类未定义');
+                }
+                if (typeof Storage === 'undefined') {
+                    throw new Error('Storage工具类未定义');
+                }
+                if (typeof DOMUtils === 'undefined') {
+                    throw new Error('DOMUtils工具类未定义');
+                }
+                if (typeof Debug === 'undefined') {
+                    throw new Error('Debug工具类未定义');
+                }
+                
+                console.log('所有必要的类都已加载');
+                
+                // 初始化全局游戏对象
+                game = new EquationGame();
+                game.init();
+                
+                console.log('游戏初始化完成');
+            } catch (error) {
+                console.error('游戏初始化失败:', error);
+                document.body.innerHTML = '<div style="padding: 20px; text-align: center; color: red;"><h2>游戏加载失败</h2><p>' + error.message + '</p><p>请检查浏览器控制台获取详细错误信息</p></div>';
+            }
+        });
+    </script>
+</body>
+</html>

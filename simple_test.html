@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简化测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>游戏功能简化测试</h1>
+        
+        <div class="test-section">
+            <h2>基础功能测试</h2>
+            <button onclick="testBasicFunction()">测试基础功能</button>
+            <div id="basic-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>数学游戏测试</h2>
+            <button onclick="testMathGame()">开始数学游戏</button>
+            <div id="math-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>平衡游戏测试</h2>
+            <button onclick="testBalanceGame()">开始平衡游戏</button>
+            <div id="balance-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>魔法盒游戏测试</h2>
+            <button onclick="testMagicBoxGame()">开始魔法盒游戏</button>
+            <div id="magicbox-result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // 简化的测试函数
+        function testBasicFunction() {
+            const result = document.getElementById('basic-result');
+            try {
+                result.innerHTML = '✅ 基础JavaScript功能正常！<br>当前时间: ' + new Date().toLocaleString();
+            } catch (error) {
+                result.innerHTML = '❌ 基础功能测试失败: ' + error.message;
+            }
+        }
+        
+        function testMathGame() {
+            const result = document.getElementById('math-result');
+            try {
+                // 简单的数学题生成
+                const a = Math.floor(Math.random() * 10) + 1;
+                const b = Math.floor(Math.random() * 10) + 1;
+                const answer = prompt(`请计算: ${a} + ${b} = ?`);
+                
+                if (parseInt(answer) === a + b) {
+                    result.innerHTML = '✅ 回答正确！数学游戏功能正常。';
+                } else {
+                    result.innerHTML = '❌ 回答错误，正确答案是: ' + (a + b);
+                }
+            } catch (error) {
+                result.innerHTML = '❌ 数学游戏测试失败: ' + error.message;
+            }
+        }
+        
+        function testBalanceGame() {
+            const result = document.getElementById('balance-result');
+            try {
+                // 简单的平衡测试
+                const leftWeight = Math.floor(Math.random() * 10) + 1;
+                const rightWeight = Math.floor(Math.random() * 10) + 1;
+                const userGuess = prompt(`左边重量: ${leftWeight}, 右边重量: ${rightWeight}\n哪边更重？(输入 left 或 right 或 equal)`);
+                
+                let correct = '';
+                if (leftWeight > rightWeight) correct = 'left';
+                else if (rightWeight > leftWeight) correct = 'right';
+                else correct = 'equal';
+                
+                if (userGuess === correct) {
+                    result.innerHTML = '✅ 回答正确！平衡游戏功能正常。';
+                } else {
+                    result.innerHTML = `❌ 回答错误，正确答案是: ${correct}`;
+                }
+            } catch (error) {
+                result.innerHTML = '❌ 平衡游戏测试失败: ' + error.message;
+            }
+        }
+        
+        function testMagicBoxGame() {
+            const result = document.getElementById('magicbox-result');
+            try {
+                // 简单的魔法盒测试
+                const items = ['🎁', '⭐', '💎', '🔮', '🎪'];
+                const randomItem = items[Math.floor(Math.random() * items.length)];
+                
+                result.innerHTML = `✅ 魔法盒打开了！你获得了: ${randomItem}<br>魔法盒游戏功能正常。`;
+            } catch (error) {
+                result.innerHTML = '❌ 魔法盒游戏测试失败: ' + error.message;
+            }
+        }
+        
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('简化测试页面加载完成');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学方程小游戏 - 主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-message {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .game-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .module {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border-color: #667eea;
+        }
+        
+        .module-icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .module-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .module-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .module-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .status-available {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-new {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .module-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .module-button:hover {
+            background: linear-gradient(45deg, #5a67d8, #6b46c1);
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .features h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .feature-icon {
+            font-size: 1.5em;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9em;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .game-modules {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .module {
+                padding: 25px;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 学方程小游戏</h1>
+        <p class="subtitle">循序渐进，轻松掌握方程思维</p>
+        
+        <div class="welcome-message">
+            <h2>欢迎来到方程学习世界！</h2>
+            <p>通过有趣的游戏，让孩子们在玩耍中理解方程的奥秘。从基础的天平概念到复杂的实际应用，每一步都精心设计。</p>
+        </div>
+        
+        <div class="game-modules">
+            <div class="module" onclick="goToGame('balance')">
+                <span class="module-icon">⚖️</span>
+                <div class="module-title">天平游戏</div>
+                <div class="module-status status-available">可游玩</div>
+                <div class="module-description">
+                    通过天平平衡学习等式概念，理解左右两边相等的含义。从简单的物品平衡开始，逐步引入数字和运算。
+                </div>
+                <button class="module-button">开始天平游戏</button>
+            </div>
+            
+            <div class="module" onclick="goToGame('magicbox')">
+                <span class="module-icon">🎁</span>
+                <div class="module-title">魔法盒子</div>
+                <div class="module-status status-available">可游玩</div>
+                <div class="module-description">
+                    通过魔法盒子游戏学习未知数概念，培养逆向思维能力。猜猜盒子里藏着什么数字？
+                </div>
+                <button class="module-button">探索魔法盒子</button>
+            </div>
+            
+            <div class="module" onclick="goToGame('story')">
+                <span class="module-icon">📚</span>
+                <div class="module-title">故事方程</div>
+                <div class="module-status status-available">可游玩</div>
+                <div class="module-description">
+                    通过有趣的故事情境学习列方程，将抽象的数学概念与具体的生活场景相结合。
+                </div>
+                <button class="module-button">进入故事世界</button>
+            </div>
+            
+            <div class="module" onclick="goToGame('challenge')">
+                <span class="module-icon">🏆</span>
+                <div class="module-title">挑战关卡</div>
+                <div class="module-status status-new">综合挑战</div>
+                <div class="module-description">
+                    综合运用所学知识，挑战更复杂的方程问题。测试你的方程解决能力！
+                </div>
+                <button class="module-button">接受挑战</button>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>🌟 游戏特色</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <span class="feature-icon">🎮</span>
+                    <span>寓教于乐，让学习变得有趣</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📈</span>
+                    <span>循序渐进，难度逐步提升</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <span>针对性练习，巩固核心概念</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🏅</span>
+                    <span>成就系统，激发学习动力</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <span>响应式设计，支持多设备</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔄</span>
+                    <span>实时反馈，及时纠正错误</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 学方程小游戏 - 让数学学习更有趣</p>
+        </div>
+    </div>
+    
+    <script>
+        // 游戏跳转函数
+        function goToGame(gameType) {
+            console.log('跳转到游戏:', gameType);
+            
+            switch(gameType) {
+                case 'balance':
+                    // 跳转到天平游戏（使用step4版本）
+                    window.location.href = 'index_step4.html';
+                    break;
+                case 'magicbox':
+                    // 跳转到魔法盒子游戏（使用step5版本）
+                    window.location.href = 'index_step5.html';
+                    break;
+                case 'story':
+                    // 跳转到故事方程游戏（使用简单版本）
+                    window.location.href = 'index_simple.html';
+                    break;
+                case 'challenge':
+                    // 跳转到挑战关卡（使用step6版本）
+                    window.location.href = 'index_step6.html';
+                    break;
+                default:
+                    alert('游戏正在开发中，敬请期待！');
+            }
+        }
+        
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('学方程小游戏主页加载完成');
+            
+            // 添加一些交互效果
+            const modules = document.querySelectorAll('.module');
+            modules.forEach(module => {
+                module.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                module.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+        
+        // 阻止按钮的默认点击事件冒泡
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('module-button')) {
+                e.stopPropagation();
+                // 触发父元素的点击事件
+                const module = e.target.closest('.module');
+                if (module && module.onclick) {
+                    module.onclick();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

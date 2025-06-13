@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学方程小游戏 - 第六步：挑战关卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        
+        .start-screen {
+            display: block;
+        }
+        
+        .stage-selection {
+            display: none;
+        }
+        
+        .balance-game {
+            display: none;
+        }
+        
+        .magicbox-game {
+            display: none;
+        }
+        
+        .story-game {
+            display: none;
+        }
+        
+        .challenge-game {
+            display: none;
+        }
+        
+        .start-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .start-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .game-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .module {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .module-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .module-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .module-description {
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .stage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stage-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .stage-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #f8f9fa;
+        }
+        
+        .stage-card.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .stage-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .stage-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .stage-description {
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        
+        .stage-progress {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .stage-progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #5a6268;
+        }
+        
+        .game-header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .game-header h2 {
+            color: #333;
+            margin: 0;
+        }
+        
+        .game-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        /* 挑战关卡特有样式 */
+        .challenge-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .challenge-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .challenge-difficulty {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .challenge-scenario {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .scenario-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .scenario-content {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .challenge-steps {
+            margin: 30px 0;
+        }
+        
+        .step-container {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .step-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .step-header:hover {
+            background: #e9ecef;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .step-status {
+            font-size: 1.2em;
+        }
+        
+        .step-content {
+            padding: 20px;
+            display: none;
+        }
+        
+        .step-content.active {
+            display: block;
+        }
+        
+        .step-question {
+            margin-bottom: 20px;
+        }
+        
+        .step-input {
+            margin: 15px 0;
+        }
+        
+        .step-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .step-input input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .step-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .step-hint {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .hint-toggle {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 0.9em;
+        }
+        
+        .hint-content {
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .hint-content.show {
+            display: block;
+        }
+        
+        .step-submit {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .step-submit:hover {
+            background: #5a67d8;
+        }
+        
+        .step-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .step-feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .step-feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .step-feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .challenge-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .progress-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .challenge-complete {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .complete-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .complete-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        
+        .complete-message {
+            color: #155724;
+            margin-bottom: 20px;
+        }
+        
+        .complete-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #155724;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .next-challenge-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 10px;
+        }
+        
+        .next-challenge-btn:hover {
+            background: #218838;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .game-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .game-info {
+                justify-content: center;
+            }
+            
+            .challenge-container {
+                padding: 20px;
+            }
+            
+            .complete-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 开始界面 -->
+        <div class="start-screen" id="startScreen">
+            <h1>🎯 学方程小游戏</h1>
+            <p class="subtitle">第六步：挑战关卡 - 综合运用所学知识</p>
+            
+            <div style="text-align: center;">
+                <button class="start-button" onclick="showStageSelection()">开始游戏</button>
+            </div>
+            
+            <div class="game-modules">
+                <div class="module">
+                    <div class="module-icon">⚖️</div>
+                    <div class="module-title">天平游戏</div>
+                    <div class="module-description">通过天平平衡学习等式概念，理解左右两边相等的含义。</div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-icon">🎁</div>
+                    <div class="module-title">魔法盒子</div>
+                    <div class="module-description">通过魔法盒子游戏学习未知数概念，培养逆向思维能力。</div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-icon">📚</div>
+                    <div class="module-title">故事方程</div>
+                    <div class="module-description">通过故事情境学习列方程，解决实际问题。</div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-icon">🏆</div>
+                    <div class="module-title">挑战关卡</div>
+                    <div class="module-description">综合运用所学知识，挑战更复杂的方程问题。</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 阶段选择界面 -->
+        <div class="stage-selection" id="stageSelection">
+            <h1>选择游戏阶段</h1>
+            <p class="subtitle">循序渐进，掌握方程思维</p>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <button class="back-button" onclick="showStartScreen()">返回首页</button>
+            </div>
+            
+            <div class="stage-grid">
+                <div class="stage-card" onclick="selectStage(1)">
+                    <span class="stage-icon">⚖️</span>
+                    <div class="stage-title">天平游戏</div>
+                    <div class="stage-description">学习等式的基本概念，理解平衡的含义</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                
+                <div class="stage-card" onclick="selectStage(2)">
+                    <span class="stage-icon">🎁</span>
+                    <div class="stage-title">魔法盒子</div>
+                    <div class="stage-description">学习未知数的概念，培养逆向思维</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                
+                <div class="stage-card" onclick="selectStage(3)">
+                    <span class="stage-icon">📚</span>
+                    <div class="stage-title">故事方程</div>
+                    <div class="stage-description">在实际情境中应用方程知识</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                
+                <div class="stage-card" onclick="selectStage(4)">
+                    <span class="stage-icon">🏆</span>
+                    <div class="stage-title">挑战关卡</div>
+                    <div class="stage-description">综合运用所学知识，挑战复杂问题</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 挑战关卡游戏界面 -->
+        <div class="challenge-game" id="challengeGame">
+            <div class="game-header">
+                <h2>🏆 挑战关卡</h2>
+                <div class="game-info">
+                    <div class="info-item">
+                        <div class="info-label">关卡</div>
+                        <div class="info-value" id="challengeLevel">1</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">分数</div>
+                        <div class="info-value" id="challengeScore">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">生命</div>
+                        <div class="info-value" id="challengeLives">❤️❤️❤️</div>
+                    </div>
+                </div>
+                <button class="back-button" onclick="showStageSelection()">返回选择</button>
+            </div>
+            
+            <div class="challenge-container">
+                <div class="challenge-header">
+                    <div class="challenge-title" id="challengeTitle">
+                        <!-- 挑战标题将在这里显示 -->
+                    </div>
+                    <div class="challenge-difficulty" id="challengeDifficulty">
+                        <!-- 难度等级将在这里显示 -->
+                    </div>
+                </div>
+                
+                <div class="challenge-scenario" id="challengeScenario">
+                    <div class="scenario-title">📖 挑战情境</div>
+                    <div class="scenario-content" id="scenarioContent">
+                        <!-- 挑战情境将在这里显示 -->
+                    </div>
+                </div>
+                
+                <div class="challenge-progress">
+                    <div class="progress-title">挑战进度</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="challengeProgressFill" style="width: 0%;">
+                            <span id="challengeProgressText">0/0</span>
+                        </div>
+                    </div>
+                    <div class="progress-text" id="challengeProgressDesc">准备开始挑战</div>
+                </div>
+                
+                <div class="challenge-steps" id="challengeSteps">
+                    <!-- 挑战步骤将在这里动态生成 -->
+                </div>
+                
+                <div class="challenge-complete" id="challengeComplete">
+                    <div class="complete-icon">🎉</div>
+                    <div class="complete-title">挑战完成！</div>
+                    <div class="complete-message" id="completeMessage">
+                        恭喜你成功完成了这个挑战关卡！
+                    </div>
+                    
+                    <div class="complete-stats" id="completeStats">
+                        <!-- 完成统计将在这里显示 -->
+                    </div>
+                    
+                    <div>
+                        <button class="next-challenge-btn" onclick="nextChallenge()">下一个挑战</button>
+                        <button class="back-button" onclick="showStageSelection()">返回选择</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 游戏状态
+        let gameState = {
+            currentStage: 1,
+            unlockedStages: 4, // 解锁所有四个阶段
+            currentLevel: 1,
+            score: 0,
+            lives: 3,
+            selectedAnswer: null,
+            progress: {
+                stage1: 100,
+                stage2: 100,
+                stage3: 100,
+                stage4: 0
+            },
+            challengeState: {
+                currentStep: 0,
+                totalSteps: 0,
+                stepAnswers: [],
+                startTime: null,
+                hints: 0
+            }
+        };
+        
+        // 挑战关卡数据
+        const challengeLevels = [
+            {
+                id: 1,
+                title: "小明的购物挑战",
+                difficulty: "easy",
+                scenario: "小明去商店买文具。他买了3支笔和2个本子，总共花了26元。已知每支笔比每个本子贵2元。请帮小明算出笔和本子的价格。",
+                steps: [
+                    {
+                        title: "第一步：设定未知数",
+                        question: "我们需要设定未知数来表示笔和本子的价格。请设定合适的未知数。",
+                        type: "text",
+                        placeholder: "例如：设每个本子的价格为x元",
+                        answer: ["设每个本子的价格为x元", "设本子的价格为x元", "设每个本子x元"],
+                        hint: "通常我们设较简单的量为未知数，这里可以设本子的价格为x元。"
+                    },
+                    {
+                        title: "第二步：表示其他量",
+                        question: "如果每个本子的价格为x元，那么每支笔的价格是多少元？",
+                        type: "text",
+                        placeholder: "用含x的式子表示",
+                        answer: ["x+2", "(x+2)", "x + 2"],
+                        hint: "题目说每支笔比每个本子贵2元，所以笔的价格 = 本子价格 + 2"
+                    },
+                    {
+                        title: "第三步：列出方程",
+                        question: "根据题意，3支笔和2个本子总共26元，请列出方程：",
+                        type: "text",
+                        placeholder: "例如：3(x+2) + 2x = 26",
+                        answer: ["3(x+2)+2x=26", "3(x+2) + 2x = 26", "2x+3(x+2)=26", "2x + 3(x+2) = 26"],
+                        hint: "3支笔的价格 + 2个本子的价格 = 总价格26元"
+                    },
+                    {
+                        title: "第四步：解方程",
+                        question: "解方程 3(x+2) + 2x = 26，求出x的值：",
+                        type: "number",
+                        placeholder: "输入数字",
+                        answer: 4,
+                        hint: "先展开括号：3x + 6 + 2x = 26，合并同类项：5x + 6 = 26，所以5x = 20，x = 4"
+                    },
+                    {
+                        title: "第五步：验证答案",
+                        question: "如果本子4元一个，笔6元一支，验证：3支笔 + 2个本子 = ?",
+                        type: "number",
+                        placeholder: "计算总价",
+                        answer: 26,
+                        hint: "3 × 6 + 2 × 4 = 18 + 8 = 26元，验证正确！"
+                    }
+                ],
+                reward: 100
+            },
+            {
+                id: 2,
+                title: "农场的鸡兔同笼",
+                difficulty: "medium",
+                scenario: "农场里有鸡和兔子，总共有15只动物，48条腿。请算出鸡和兔子各有多少只。",
+                steps: [
+                    {
+                        title: "第一步：理解问题",
+                        question: "鸡有几条腿？兔子有几条腿？",
+                        type: "text",
+                        placeholder: "例如：鸡有2条腿，兔子有4条腿",
+                        answer: ["鸡有2条腿，兔子有4条腿", "鸡2条腿，兔子4条腿", "鸡2条，兔子4条"],
+                        hint: "这是基本常识：鸡有2条腿，兔子有4条腿。"
+                    },
+                    {
+                        title: "第二步：设定未知数",
+                        question: "设鸡有x只，那么兔子有多少只？",
+                        type: "text",
+                        placeholder: "用含x的式子表示",
+                        answer: ["15-x", "(15-x)", "15 - x"],
+                        hint: "总共15只动物，鸡有x只，那么兔子就有(15-x)只。"
+                    },
+                    {
+                        title: "第三步：列出方程",
+                        question: "根据腿的总数是48条，列出方程：",
+                        type: "text",
+                        placeholder: "例如：2x + 4(15-x) = 48",
+                        answer: ["2x+4(15-x)=48", "2x + 4(15-x) = 48", "4(15-x)+2x=48", "4(15-x) + 2x = 48"],
+                        hint: "鸡的腿数 + 兔子的腿数 = 总腿数48条"
+                    },
+                    {
+                        title: "第四步：解方程",
+                        question: "解方程 2x + 4(15-x) = 48，求出x的值：",
+                        type: "number",
+                        placeholder: "输入鸡的数量",
+                        answer: 6,
+                        hint: "展开：2x + 60 - 4x = 48，合并：-2x + 60 = 48，所以-2x = -12，x = 6"
+                    },
+                    {
+                        title: "第五步：求出兔子数量",
+                        question: "如果鸡有6只，那么兔子有多少只？",
+                        type: "number",
+                        placeholder: "输入兔子的数量",
+                        answer: 9,
+                        hint: "兔子数量 = 15 - 6 = 9只"
+                    }
+                ],
+                reward: 150
+            },
+            {
+                id: 3,
+                title: "工程队的合作项目",
+                difficulty: "hard",
+                scenario: "甲工程队单独完成一项工程需要12天，乙工程队单独完成需要18天。现在两队合作，几天能完成这项工程？",
+                steps: [
+                    {
+                        title: "第一步：理解工作效率",
+                        question: "甲队每天完成工程的几分之几？乙队呢？",
+                        type: "text",
+                        placeholder: "例如：甲队每天完成1/12，乙队每天完成1/18",
+                        answer: ["甲队每天完成1/12，乙队每天完成1/18", "甲队1/12，乙队1/18", "1/12，1/18"],
+                        hint: "工作效率 = 1 ÷ 完成时间。甲队12天完成，每天完成1/12。"
+                    },
+                    {
+                        title: "第二步：计算合作效率",
+                        question: "两队合作，每天完成工程的几分之几？",
+                        type: "text",
+                        placeholder: "例如：1/12 + 1/18",
+                        answer: ["1/12+1/18", "1/12 + 1/18", "5/36"],
+                        hint: "合作效率 = 甲队效率 + 乙队效率 = 1/12 + 1/18"
+                    },
+                    {
+                        title: "第三步：通分计算",
+                        question: "计算 1/12 + 1/18 的结果（用分数表示）：",
+                        type: "text",
+                        placeholder: "例如：5/36",
+                        answer: ["5/36", "5/36"],
+                        hint: "通分：1/12 = 3/36，1/18 = 2/36，所以 3/36 + 2/36 = 5/36"
+                    },
+                    {
+                        title: "第四步：设定未知数",
+                        question: "设两队合作x天完成工程，列出方程：",
+                        type: "text",
+                        placeholder: "例如：(5/36)x = 1",
+                        answer: ["(5/36)x=1", "(5/36)x = 1", "5x/36=1", "5x/36 = 1"],
+                        hint: "每天完成5/36，x天完成全部工程(1)，所以(5/36)x = 1"
+                    },
+                    {
+                        title: "第五步：解方程",
+                        question: "解方程 (5/36)x = 1，求出x的值：",
+                        type: "number",
+                        placeholder: "输入天数（保留一位小数）",
+                        answer: 7.2,
+                        hint: "x = 1 ÷ (5/36) = 36/5 = 7.2天"
+                    }
+                ],
+                reward: 200
+            }
+        ];
+        
+        // 显示阶段选择界面
+        function showStageSelection() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('stageSelection').style.display = 'block';
+            document.getElementById('challengeGame').style.display = 'none';
+            updateStageCards();
+            console.log('显示阶段选择界面');
+        }
+        
+        // 显示开始界面
+        function showStartScreen() {
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('stageSelection').style.display = 'none';
+            document.getElementById('challengeGame').style.display = 'none';
+            console.log('返回开始界面');
+        }
+        
+        // 选择阶段
+        function selectStage(stage) {
+            if (stage > gameState.unlockedStages) {
+                alert('请先完成前面的阶段！');
+                return;
+            }
+            
+            gameState.currentStage = stage;
+            console.log('选择阶段:', stage);
+            
+            if (stage === 4) {
+                startChallengeGame();
+            } else {
+                alert(`阶段 ${stage} 请使用对应的游戏版本！`);
+            }
+        }
+        
+        // 开始挑战关卡游戏
+        function startChallengeGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('stageSelection').style.display = 'none';
+            document.getElementById('challengeGame').style.display = 'block';
+            
+            // 重置游戏状态
+            gameState.currentLevel = 1;
+            gameState.score = 0;
+            gameState.lives = 3;
+            gameState.challengeState = {
+                currentStep: 0,
+                totalSteps: 0,
+                stepAnswers: [],
+                startTime: Date.now(),
+                hints: 0
+            };
+            
+            updateChallengeGameInfo();
+            loadChallengeLevel(gameState.currentLevel);
+            console.log('开始挑战关卡游戏');
+        }
+        
+        // 更新挑战游戏信息显示
+        function updateChallengeGameInfo() {
+            document.getElementById('challengeLevel').textContent = gameState.currentLevel;
+            document.getElementById('challengeScore').textContent = gameState.score;
+            
+            let livesDisplay = '';
+            for (let i = 0; i < gameState.lives; i++) {
+                livesDisplay += '❤️';
+            }
+            document.getElementById('challengeLives').textContent = livesDisplay;
+        }
+        
+        // 加载挑战关卡
+        function loadChallengeLevel(level) {
+            const challenge = challengeLevels[level - 1];
+            if (!challenge) {
+                alert('恭喜！你已经完成了所有挑战关卡！');
+                showStageSelection();
+                return;
+            }
+            
+            // 设置挑战信息
+            document.getElementById('challengeTitle').textContent = challenge.title;
+            
+            const difficultyElement = document.getElementById('challengeDifficulty');
+            difficultyElement.textContent = {
+                'easy': '简单',
+                'medium': '中等',
+                'hard': '困难'
+            }[challenge.difficulty];
+            difficultyElement.className = `challenge-difficulty difficulty-${challenge.difficulty}`;
+            
+            document.getElementById('scenarioContent').textContent = challenge.scenario;
+            
+            // 重置挑战状态
+            gameState.challengeState.currentStep = 0;
+            gameState.challengeState.totalSteps = challenge.steps.length;
+            gameState.challengeState.stepAnswers = [];
+            
+            // 更新进度
+            updateChallengeProgress();
+            
+            // 生成步骤
+            generateChallengeSteps(challenge.steps);
+            
+            // 隐藏完成界面
+            document.getElementById('challengeComplete').style.display = 'none';
+        }
+        
+        // 生成挑战步骤
+        function generateChallengeSteps(steps) {
+            const stepsContainer = document.getElementById('challengeSteps');
+            stepsContainer.innerHTML = '';
+            
+            steps.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'step-container';
+                stepDiv.innerHTML = `
+                    <div class="step-header" onclick="toggleStep(${index})">
+                        <div class="step-title">${step.title}</div>
+                        <div class="step-status" id="stepStatus${index}">⏳</div>
+                    </div>
+                    <div class="step-content" id="stepContent${index}" ${index === 0 ? 'style="display: block;"' : ''}>
+                        <div class="step-question">${step.question}</div>
+                        <div class="step-input">
+                            <label for="stepInput${index}">你的答案：</label>
+                            <input type="${step.type}" id="stepInput${index}" placeholder="${step.placeholder}" 
+                                   onkeypress="handleStepKeyPress(event, ${index})">
+                        </div>
+                        <div class="step-hint">
+                            <button class="hint-toggle" onclick="toggleHint(${index})">💡 需要提示？</button>
+                            <div class="hint-content" id="hintContent${index}">
+                                ${step.hint}
+                            </div>
+                        </div>
+                        <button class="step-submit" onclick="checkStepAnswer(${index})">提交答案</button>
+                        <div class="step-feedback" id="stepFeedback${index}"></div>
+                    </div>
+                `;
+                stepsContainer.appendChild(stepDiv);
+            });
+            
+            // 激活第一步
+            if (steps.length > 0) {
+                document.getElementById('stepContent0').classList.add('active');
+            }
+        }
+        
+        // 切换步骤显示
+        function toggleStep(stepIndex) {
+            const content = document.getElementById(`stepContent${stepIndex}`);
+            const isActive = content.style.display === 'block';
+            
+            // 只允许展开当前步骤或已完成的步骤
+            if (stepIndex <= gameState.challengeState.currentStep) {
+                content.style.display = isActive ? 'none' : 'block';
+            }
+        }
+        
+        // 切换提示显示
+        function toggleHint(stepIndex) {
+            const hintContent = document.getElementById(`hintContent${stepIndex}`);
+            const isShowing = hintContent.classList.contains('show');
+            
+            if (!isShowing) {
+                gameState.challengeState.hints++;
+            }
+            
+            hintContent.classList.toggle('show');
+        }
+        
+        // 处理步骤输入的回车键
+        function handleStepKeyPress(event, stepIndex) {
+            if (event.key === 'Enter') {
+                checkStepAnswer(stepIndex);
+            }
+        }
+        
+        // 检查步骤答案
+        function checkStepAnswer(stepIndex) {
+            const challenge = challengeLevels[gameState.currentLevel - 1];
+            const step = challenge.steps[stepIndex];
+            const input = document.getElementById(`stepInput${stepIndex}`);
+            const feedback = document.getElementById(`stepFeedback${stepIndex}`);
+            const status = document.getElementById(`stepStatus${stepIndex}`);
+            
+            const userAnswer = input.value.trim();
+            let isCorrect = false;
+            
+            // 检查答案
+            if (step.type === 'number') {
+                const userNum = parseFloat(userAnswer);
+                const correctNum = parseFloat(step.answer);
+                isCorrect = Math.abs(userNum - correctNum) < 0.1; // 允许小数误差
+            } else {
+                // 文本答案，支持多个正确答案
+                const correctAnswers = Array.isArray(step.answer) ? step.answer : [step.answer];
+                isCorrect = correctAnswers.some(answer => 
+                    userAnswer.toLowerCase().replace(/\s+/g, '') === 
+                    answer.toLowerCase().replace(/\s+/g, '')
+                );
+            }
+            
+            if (isCorrect) {
+                feedback.className = 'step-feedback correct';
+                feedback.textContent = '✅ 正确！继续下一步。';
+                status.textContent = '✅';
+                input.disabled = true;
+                
+                // 记录答案
+                gameState.challengeState.stepAnswers[stepIndex] = userAnswer;
+                
+                // 如果是当前步骤，前进到下一步
+                if (stepIndex === gameState.challengeState.currentStep) {
+                    gameState.challengeState.currentStep++;
+                    gameState.score += 20; // 每步20分
+                    updateChallengeGameInfo();
+                    updateChallengeProgress();
+                    
+                    // 激活下一步
+                    if (stepIndex + 1 < challenge.steps.length) {
+                        const nextContent = document.getElementById(`stepContent${stepIndex + 1}`);
+                        nextContent.style.display = 'block';
+                        nextContent.classList.add('active');
+                        
+                        // 滚动到下一步
+                        nextContent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        // 完成挑战
+                        completeChallenge();
+                    }
+                }
+            } else {
+                feedback.className = 'step-feedback incorrect';
+                feedback.textContent = '❌ 答案不正确，请重试。';
+                status.textContent = '❌';
+                
+                // 扣除生命值
+                if (stepIndex === gameState.challengeState.currentStep) {
+                    gameState.lives--;
+                    updateChallengeGameInfo();
+                    
+                    if (gameState.lives <= 0) {
+                        alert('生命值耗尽！挑战失败。');
+                        showStageSelection();
+                        return;
+                    }
+                }
+            }
+        }
+        
+        // 更新挑战进度
+        function updateChallengeProgress() {
+            const current = gameState.challengeState.currentStep;
+            const total = gameState.challengeState.totalSteps;
+            const percentage = total > 0 ? (current / total) * 100 : 0;
+            
+            const progressFill = document.getElementById('challengeProgressFill');
+            const progressText = document.getElementById('challengeProgressText');
+            const progressDesc = document.getElementById('challengeProgressDesc');
+            
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = `${current}/${total}`;
+            
+            if (current === 0) {
+                progressDesc.textContent = '准备开始挑战';
+            } else if (current < total) {
+                progressDesc.textContent = `已完成 ${current} 个步骤，继续加油！`;
+            } else {
+                progressDesc.textContent = '所有步骤已完成！';
+            }
+        }
+        
+        // 完成挑战
+        function completeChallenge() {
+            const challenge = challengeLevels[gameState.currentLevel - 1];
+            const endTime = Date.now();
+            const timeUsed = Math.round((endTime - gameState.challengeState.startTime) / 1000);
+            
+            // 计算奖励分数
+            let bonusScore = challenge.reward;
+            
+            // 时间奖励（少于5分钟有奖励）
+            if (timeUsed < 300) {
+                bonusScore += Math.max(0, 100 - timeUsed);
+            }
+            
+            // 提示惩罚
+            bonusScore -= gameState.challengeState.hints * 10;
+            
+            // 生命值奖励
+            bonusScore += gameState.lives * 20;
+            
+            gameState.score += bonusScore;
+            updateChallengeGameInfo();
+            
+            // 显示完成界面
+            const completeDiv = document.getElementById('challengeComplete');
+            const completeMessage = document.getElementById('completeMessage');
+            const completeStats = document.getElementById('completeStats');
+            
+            completeMessage.textContent = `恭喜你成功完成了"${challengeLevels[gameState.currentLevel - 1].title}"！`;
+            
+            completeStats.innerHTML = `
+                <div class="stat-item">
+                    <span class="stat-label">用时：</span>
+                    <span class="stat-value">${Math.floor(timeUsed / 60)}分${timeUsed % 60}秒</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">使用提示：</span>
+                    <span class="stat-value">${gameState.challengeState.hints}次</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">奖励分数：</span>
+                    <span class="stat-value">+${bonusScore}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">总分：</span>
+                    <span class="stat-value">${gameState.score}</span>
+                </div>
+            `;
+            
+            // 隐藏步骤，显示完成界面
+            document.getElementById('challengeSteps').style.display = 'none';
+            completeDiv.style.display = 'block';
+            
+            // 更新进度
+            if (gameState.currentLevel === challengeLevels.length) {
+                gameState.progress.stage4 = 100;
+                updateStageCards();
+            }
+        }
+        
+        // 下一个挑战
+        function nextChallenge() {
+            if (gameState.currentLevel < challengeLevels.length) {
+                gameState.currentLevel++;
+                loadChallengeLevel();
+            } else {
+                alert('恭喜你完成了所有挑战关卡！');
+                showStageSelection();
+            }
+        }
+        
+        // 更新阶段卡片状态
+        function updateStageCards() {
+            const stageCards = document.querySelectorAll('.stage-card');
+            stageCards.forEach((card, index) => {
+                const stageNum = index + 1;
+                const progressFill = card.querySelector('.stage-progress-fill');
+                
+                if (stageNum <= gameState.unlockedStages) {
+                    card.classList.remove('locked');
+                    if (stageNum === 1) {
+                        progressFill.style.width = gameState.progress.stage1 + '%';
+                    } else if (stageNum === 2) {
+                        progressFill.style.width = gameState.progress.stage2 + '%';
+                    } else if (stageNum === 3) {
+                        progressFill.style.width = gameState.progress.stage3 + '%';
+                    } else if (stageNum === 4) {
+                        progressFill.style.width = gameState.progress.stage4 + '%';
+                    }
+                } else {
+                    card.classList.add('locked');
+                    progressFill.style.width = '0%';
+                }
+            });
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，初始化游戏');
+            updateStageCards();
+            
+            // 为挑战答案输入框添加回车提交功能
+            document.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const activeInput = document.activeElement;
+                    if (activeInput && activeInput.classList.contains('challenge-input')) {
+                        checkStepAnswer();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

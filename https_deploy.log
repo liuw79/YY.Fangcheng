@@ -1,0 +1,14 @@
+2025-06-13 17:19:32,969 - INFO - 开始HTTPS部署...
+2025-06-13 17:19:33,235 - INFO - Connected (version 2.0, client OpenSSH_7.4)
+2025-06-13 17:19:33,566 - INFO - Authentication (publickey) successful!
+2025-06-13 17:19:33,566 - INFO - SSH密钥连接成功
+2025-06-13 17:19:33,651 - INFO - [chan 0] Opened sftp connection (server version 3)
+2025-06-13 17:19:35,636 - INFO - 部署包创建成功: fangcheng_deploy_20250613_171933.tar.gz
+2025-06-13 17:19:35,719 - INFO - 上传文件到服务器: /tmp/fangcheng_deploy_20250613_171933.tar.gz
+2025-06-13 17:19:44,340 - INFO - 解压到应用目录: /var/www/fangcheng
+2025-06-13 17:19:44,433 - INFO - 文件上传和解压完成
+2025-06-13 17:19:44,621 - INFO - SSL证书创建完成
+2025-06-13 17:19:44,838 - ERROR - Nginx HTTPS配置失败: Nginx配置测试失败: nginx: [emerg] the "ssl" parameter requires ngx_http_ssl_module in /usr/local/nginx/conf/nginx.conf:136
+nginx: configuration file /usr/local/nginx/conf/nginx.conf test failed
+
+2025-06-13 17:19:44,879 - INFO - [chan 0] sftp session closed.

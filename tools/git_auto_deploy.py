@@ -144,7 +144,7 @@ class GitAutoDeploy:
             logger.info("开始部署到服务器...")
             
             if use_https:
-                deploy_script = "tools/python_https_deploy.py"
+                deploy_script = "tools/official_https_deploy.py"
             else:
                 deploy_script = "tools/simple_deploy.py"
             
@@ -174,7 +174,7 @@ class GitAutoDeploy:
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             
             # 尝试HTTPS
-            https_url = f"https://{self.config['server']['domain']}:8443"
+            https_url = f"https://{self.config['server']['domain']}"
             try:
                 response = requests.get(https_url, timeout=10, verify=False)
                 if response.status_code == 200:
@@ -216,7 +216,7 @@ class GitAutoDeploy:
             new_entry = f"\n## 自动部署记录 - {timestamp}\n\n"
             new_entry += f"**状态**: {status}\n"
             new_entry += f"**时间**: {timestamp}\n"
-            new_entry += f"**访问地址**: https://{self.config['server']['domain']}:8443\n"
+            new_entry += f"**访问地址**: https://{self.config['server']['domain']}\n"
             new_entry += f"**备用地址**: http://{self.config['server']['domain']}:{self.config['app']['port']}\n\n"
             
             # 写入文件
@@ -265,7 +265,7 @@ class GitAutoDeploy:
             
             logger.info("=" * 60)
             logger.info("Git自动部署工作流程完成")
-            logger.info(f"访问地址: https://{self.config['server']['domain']}:8443")
+            logger.info(f"访问地址: https://{self.config['server']['domain']}")
             logger.info("=" * 60)
             
             return True

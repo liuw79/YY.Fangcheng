@@ -32,8 +32,8 @@ class OfficialHTTPSDeploy:
         self.ssh_client = None
         self.sftp_client = None
         # 使用正式证书路径
-        self.cert_path = "/opt/GW.Trackr/.deployment_backup_20250608_230420/ssl_certs/server.crt"
-        self.key_path = "/opt/GW.Trackr/.deployment_backup_20250608_230420/ssl_certs/server.key"
+        self.cert_path = "/root/cert/gaowei.crt"
+        self.key_path = "/root/cert/gaowei.key"
 
     def _load_config(self, config_path: str) -> dict:
         """加载配置文件"""

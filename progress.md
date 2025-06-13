@@ -327,3 +327,25 @@ python3 tools/simple_deploy.py
 **访问地址**: https://op.gaowei.com
 **备用地址**: http://op.gaowei.com:8888
 
+## SSL协议错误问题解决 - 2025-06-13 18:36
+
+### ❌ 问题描述
+用户尝试使用 `https://op.gaowei.com:88/` 访问应用时遇到 `ERR_SSL_PROTOCOL_ERROR` 错误，显示"此网站无法提供安全连接"。
+
+### ✅ 问题根因
+- `python3 -m http.server 88` 启动的是 **HTTP** 服务器，不支持 HTTPS
+- 用户在浏览器中使用 `https://` 协议访问 HTTP 服务器导致协议不匹配
+
+### 🔧 解决方案
+**正确访问地址：`http://op.gaowei.com:88`**（注意是 http 不是 https）
+
+### 📋 验证结果
+- 服务器状态：✅ Python HTTP 服务器正在端口 88 运行（PID: 9212）
+- HTTP 访问测试：✅ `curl -I http://op.gaowei.com:88` 返回 200 OK
+- 服务器响应：✅ `SimpleHTTP/0.6 Python/3.6.8`
+
+### 💡 重要提醒
+- **HTTP 访问**：`http://op.gaowei.com:88`
+- **HTTPS 配置**：如需 HTTPS，需要配置支持 SSL 的服务器
+- **开发测试**：HTTP 通常已足够满足需求
+
